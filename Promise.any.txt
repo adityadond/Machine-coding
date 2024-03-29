@@ -1,0 +1,33 @@
+function promiseAny(promises) {
+    return new Promise((resolve, reject) => {
+        let rejectedCount = 0;
+        const reasons = [];
+
+        promises.forEach(promise => {
+            Promise.resolve(promise)
+                .then(value => resolve(value))
+                .catch(reason => {
+                    reasons.push(reason);
+                    rejectedCount++;
+
+                    if (rejectedCount === promises.length) {
+                        reject(reasons);
+                    }
+                });
+        });
+    });
+}
+
+// Example promises
+const promise1 = new Promise((resolve, reject) => setTimeout(() => resolve('Promise 1 resolved'), 1000));
+const promise2 = new Promise((resolve, reject) => setTimeout(() => reject('Promise 2 rejected'), 500));
+const promise3 = new Promise((resolve, reject) => setTimeout(() => resolve('Promise 3 resolved'), 1500));
+
+// Using promiseAny function
+promiseAny([promise1, promise2, promise3])
+    .then(value => {
+        console.log('First promise to fulfill:', value); // Output: First promise to fulfill: Promise 1 resolved
+    })
+    .catch(reasons => {
+        console.error('All promises rejected:', reasons); // Output: All promises rejected: [ 'Promise 2 rejected' ]
+    });

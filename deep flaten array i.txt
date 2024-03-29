@@ -1,0 +1,18 @@
+function deepFlatten(arr) {
+    let result = [];
+
+    arr.forEach(item => {
+        if (Array.isArray(item)) {
+            result.push(...deepFlatten(item));
+        } else {
+            result.push(item);
+        }
+    });
+
+    return result;
+}
+
+// Example usage:
+const nestedArray = [1, [2, [3, 4], 5], 6, [7, 8]];
+const flattenedArray = deepFlatten(nestedArray);
+console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6, 7, 8]

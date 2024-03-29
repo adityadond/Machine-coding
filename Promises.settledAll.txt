@@ -1,0 +1,26 @@
+// Function to mimic settledAll behavior
+function settledAll(promises) {
+    return Promise.all(promises.map(promise =>
+        Promise.resolve(promise)
+            .then(value => ({ status: 'fulfilled', value }))
+            .catch(reason => ({ status: 'rejected', reason }))
+    ));
+}
+
+// Example promises
+const promise1 = Promise.resolve('Resolved promise');
+const promise2 = Promise.reject('Rejected promise');
+const promise3 = new Promise((resolve, reject) => setTimeout(() => resolve('Delayed resolved promise'), 1000));
+
+// Using settledAll function
+settledAll([promise1, promise2, promise3])
+    .then(results => {
+        console.log(results);
+        /* Output:
+        [
+            { status: 'fulfilled', value: 'Resolved promise' },
+            { status: 'rejected', reason: 'Rejected promise' },
+            { status: 'fulfilled', value: 'Delayed resolved promise' }
+        ]
+        */
+    });

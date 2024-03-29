@@ -1,0 +1,27 @@
+// Define some promises
+const promise1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('Promise 1 resolved');
+    }, 1000);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('Promise 2 resolved');
+    }, 500);
+});
+
+const promise3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve('Promise 3 resolved');
+    }, 1500);
+});
+
+// Use Promise.all() to wait for all promises to resolve
+Promise.all([promise1, promise2, promise3])
+    .then((results) => {
+        console.log(results); // Output: ['Promise 1 resolved', 'Promise 2 resolved', 'Promise 3 resolved']
+    })
+    .catch((error) => {
+        console.error('At least one of the promises rejected:', error);
+    });

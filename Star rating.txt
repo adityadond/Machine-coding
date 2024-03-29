@@ -1,0 +1,40 @@
+App.js
+import React, { useState } from 'react';
+import './App.css';
+
+function App() {
+  const [rating, setRating] = useState(0);
+
+  return (
+    <div>
+      {Array(5)
+        .fill()
+        .map((ele, index) => (
+          <button
+            key={index}
+            className={index < rating ? 'on' : 'off'}
+            onClick={() => setRating(index + 1)}
+          >
+            {/* Rendering a star symbol directly within each button */}
+            &#9733;
+          </button>
+        ))}
+    </div>
+  );
+}
+
+export default App;
+
+App.css
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+.off {
+  color: #ccc;
+}

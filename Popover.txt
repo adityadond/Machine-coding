@@ -1,0 +1,36 @@
+import React, { useState } from 'react';
+import './App.css';
+
+function App() {
+  const [showPopover, setShowPopover] = useState(false);
+
+  return (
+    <div>
+      <button
+        onClick={() => setShowPopover(!showPopover)}
+        onMouseEnter={() => setShowPopover(true)}
+        onMouseLeave={() => setShowPopover(false)}
+      >
+        Toggle Popover
+      </button>
+      {showPopover && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '50px', // Adjust as needed
+            left: '50px', // Adjust as needed
+            backgroundColor: 'white',
+            border: '1px solid black',
+            padding: '10px',
+            borderRadius: '5px',
+            boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.5)',
+          }}
+        >
+          This is a popover content.
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
